@@ -38,41 +38,39 @@ PIX = 20
 
 class Fish:
     def __init__(self, x, y, color, speed):
+
+        #boday
         self._body = Oval(Point(x-W/2, y-H/2), Point(x + W/2, y+H/2))
+        self._body.setFill(color)
+
         self._tail = Oval(Point(x-PIX-W1/2, y-H1/2), Point(x-PIX+W1/2, y+H1/2))
+        self._tail.setFill(color)
+
         self._eye = Circle(Point(x+W/4, y-H/4), 3)
+        self._eye.setFill("white")
+
         self._speed = speed
         
-    def draw(self, window):
-        self._body.draw(window)
-        self._tail.draw(window)
-        self._eye.draw(window)
+
+
+    def draw(self, win):
+        self._body.draw(win)
+        self._tail.draw(win)
+        self._eye.draw(win)
 
     def move(self):
         self._tail.move(self._speed, 0)
-        x_cor1 = self._tail.getCenter().getX()
-        
-        if x_cor1 > 0:
-            self._tail.move(WINDOW_WIDTH, 0)
-
-
         self._body.move(self._speed, 0)
-        x_cor2 = self._body.getCenter().getX()
-        
-        if x_cor2 > 0:
-            self._body.move(WINDOW_WIDTH, 0)
-
-
         self._eye.move(self._speed, 0)
-        x_cor = self._eye.getCenter().getX()
+
+        x = self._body.getCenter().getX()
         
-        if x_cor > 0:
-            self._eye.move(WINDOW_WIDTH, 0)
+        if x > WINDOW_WIDTH:
+            self._body.move(-WINDOW_WIDTH, 0)
+            self._tail.move(-WINDOW_WIDTH, 0)
+            self._eye.move(-WINDOW_WIDTH, 0)
 
 
-    
-
-    
 #*************
 # BUBBLE CLASS
 #*************
