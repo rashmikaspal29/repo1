@@ -53,6 +53,8 @@ class Fish:
 
         #speed 
         self._speed = speed
+
+         
         
 
 
@@ -79,19 +81,26 @@ class Fish:
 #*************
 
 class Bubble:
-    def __init__(self, x, y, speed):
+    def __init__(self, x, y, speed,count):
         self._circle = Circle(Point(x,y), 5)
         self._circle.setFill("white")
         self._speed = speed
+        self._count = count
         
     def draw(self, window):
         self._circle.draw(window)
         
     def move(self):
+
+        self._count += 1
+         
         self._circle.move(0, self._speed)
         y_cor = self._circle.getCenter().getY()
         if y_cor < 0:
             self._circle.move(0, WINDOW_HEIGHT)
+
+
+
             
             
         
