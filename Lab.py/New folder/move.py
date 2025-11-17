@@ -6,13 +6,13 @@ Lab 8
 The program displays a virtual aquarium with animated fish and floating bubbles.
 It utilizes a Fish and Bubble class.
 
-Did you complete this lab file during the class period (yes or no)?
+Did you complete this lab file during the class period (yes or no)? no
 
 If no, leave the one that applies. If yes, delete this entire section!
     I completed aquarium.py without my partner from class.
-    I completed aquarium_game.py with my partner from class.
+    
 
-    Document any assistance you get if you complete the lab after the class period:
+    Document any assistance you get if you complete the lab after the class period: sean and hieu, in drop in tutoring helped me to strategize code for bobbing the bubbles(if statement). 
     
 '''
 
@@ -37,7 +37,7 @@ PIX = 20
 #***********
 
 class Fish:
-    def __init__(self, x, y, color, speed):
+    def __init__(self, x, y, color, speed, count):
 
         #body
         self._body = Oval(Point(x-W/2, y-H/2), Point(x + W/2, y+H/2))
@@ -54,6 +54,10 @@ class Fish:
         #speed 
         self._speed = speed
 
+        self._count = count 
+
+        self._dy = -1
+
          
         
 
@@ -64,9 +68,16 @@ class Fish:
         self._eye.draw(win)
 
     def move(self):
-        self._body.move(self._speed, 0)
-        self._tail.move(self._speed, 0)
-        self._eye.move(self._speed, 0)
+        self._count += 1
+
+        # if statement so that fish changes its position everytime count is the multiple of 10
+        if self._count % 10 == 0:
+            self._dy = self._dy * (-1)
+
+
+        self._body.move(self._speed, self._dy) # fish bobs only if you keep self._dy as y
+        self._tail.move(self._speed, self._dy)
+        self._eye.move(self._speed, self._dy)
 
         x = self._body.getCenter().getX()
         
@@ -86,15 +97,22 @@ class Bubble:
         self._circle.setFill("white")
         self._speed = speed
         self._count = count
+        self._dx = -1
         
     def draw(self, window):
         self._circle.draw(window)
         
     def move(self):
-
         self._count += 1
+        
+
+        if self._count % 10 == 0:
+            
+            self._dx = self._dx * (-1)
+
+
          
-        self._circle.move(0, self._speed)
+        self._circle.move(self._dx, self._speed)
         y_cor = self._circle.getCenter().getY()
         if y_cor < 0:
             self._circle.move(0, WINDOW_HEIGHT)
@@ -195,7 +213,7 @@ def setupFish(numFish):
         y2 = random.randrange(0, WINDOW_HEIGHT)
         speed2 = random.randrange(1,6)
         color1 = randColor()
-        fish = Fish(x2, y2, color1, speed2)
+        fish = Fish(x2, y2, color1, speed2, 0)
         fishList.append(fish)
     return fishList
         
@@ -219,7 +237,7 @@ def setupBubbles(numBubbles):
         x1 = random.randrange(0, WINDOW_WIDTH)
         y1 = random.randrange(0, WINDOW_HEIGHT)
         speed1 = random.randrange(-5, 0)
-        bubble = Bubble(x1, y1, speed1)
+        bubble = Bubble(x1, y1, speed1, 0)
         bubbleList.append(bubble)
     return bubbleList
         
