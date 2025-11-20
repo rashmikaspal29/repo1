@@ -52,7 +52,7 @@ def main():
     fout.write(f"{width} {height}\n")
     fout.write(f"{colorNum}\n")
     
-    for line in artFile:
+    for index in range(NUM_CIRCLES):
         xCoordinate = random.randrange(width)
         yCoordinate = random.randrange(height)
         redNum, greenNum, blueNum = myImage.getPixel(xCoordinate, yCoordinate)

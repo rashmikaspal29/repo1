@@ -83,9 +83,10 @@ def main():
 
       
     fin.close()
-    win.getMouse()
+ 
     print("Picture Completed.")
-    
+    win.getMouse()
+    win.close()
 
 main()
 
